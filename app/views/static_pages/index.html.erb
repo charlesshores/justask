@@ -12,7 +12,29 @@
           </div>
         </div>
       </form>
+      <%= form_for(@suggestion) do |f| %>
+      <%= f.label :content %>
+      <%= f.text_area :content %>
+      <%= f.submit %>
+      <% end %>
     </div>
+    <% unless @suggestions.any? %>
     <h5>There are no suggestions. Be the first to add one.</h5>
+    <% else %>
+      <table id='suggestions-table'>
+        <thead>
+          <tr>
+            <th>Suggestions:</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @suggestions.each do |s| %>
+          <tr>
+            <td><%= s.content %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 </div>
