@@ -16,3 +16,8 @@
 #suggestions-table {
   width: 100%;
 }
+
+.block {
+  display: block;
+  width: 100%;
+}

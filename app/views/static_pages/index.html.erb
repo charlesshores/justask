@@ -3,19 +3,29 @@
     <h1>Just Ask App</h1>
     <h3>The only website made entirely by user suggestions.</h3>
     <div class="panel callout">
-      <form>
+      <%= form_for(@suggestion) do |f| %>
         <div class="row">
           <div class="large-12 columns">
-            <label>Please make a suggestion:</label>
-            <textarea placeholder="What should I do with this website?"></textarea>
-            <button type="button" class="button primary">Submit your suggestion</a>
+          <%- flash.each do |key, msg| -%>
+            <div id="<%= key %>">
+              <p><%= msg %></p>
+              <div class="clear"></div>
+            </div>
+          <%- end -%>
+            <div class="row">
+              <div class="large-12 columns">
+                <%= f.label "Please make a suggestion:" %>
+                <h5><small>*Between 4-10 words</small></h5>
+                <%= f.text_area :content, placeholder: 'What should I do with this website?' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="large-12 columns">
+                <%= f.submit "Submit", class: 'button primary block' %>
+              </div>
+            </div>
           </div>
         </div>
-      </form>
-      <%= form_for(@suggestion) do |f| %>
-      <%= f.label :content %>
-      <%= f.text_area :content %>
-      <%= f.submit %>
       <% end %>
     </div>
     <% unless @suggestions.any? %>
@@ -24,7 +34,7 @@
       <table id='suggestions-table'>
         <thead>
           <tr>
-            <th>Suggestions:</th>
+            <th><%= pluralize(@suggestions.count, 'suggestion') %>:</th>
           </tr>
         </thead>
         <tbody>
